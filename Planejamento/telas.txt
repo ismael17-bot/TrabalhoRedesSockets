@@ -1,0 +1,7 @@
+ - inicio( talvez, pois conclusão do multiplayer, para escolher multi ou single)
+ - carregamento (tela que faz a conexão com o servidor, e envia as infos necessarias) (tela de inicial).
+
+ - configuração (de partida)
+ - criação (de  partida)
+ - tela onde se ve lista de partidas e pode-se entrar ou criar uma
+ - jogo (tela que se joga o jogo em si)
