@@ -1,1 +1,2 @@
-Todas as função de cliente dentro da pasta cliente e para o servidor o mesmo
+Todas as função de cliente dentro da pasta cliente e para o servidor o mesmo.
+Comentar o que a class/arquivo/função ira fazer ou funcionalidade.

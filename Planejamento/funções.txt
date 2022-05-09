@@ -1,0 +1,81 @@
+
+cliente
+ - Class conector
+    - metodo de conexão
+    - abrir conexão
+    - fechar conexão
+    - enviar msg
+    - receber msg
+
+ - Tela lista de salas
+    - Lista de salas
+    - entrar sala
+    - prompit de senha
+
+ - Tela de criação
+    - Add palavra // sem cadastro
+    - seleção categoria(s)
+    - excluir palavras
+    - pode-se definir senha
+    - nome sala
+
+ - Tela Jogo
+    - Lista de Users
+    - Escuta Novos Users
+    - Palavra
+    - Letras Usadas
+    - Vez
+    - Fim
+    - Começo?
+// -------------------------------------- //
+servidor
+
+ - Banco
+    - Tabela User
+        - Campos
+            - id unico/pk
+            - nome
+            - lv
+            - xp
+            - pontos
+        - Busca
+        - Cadastro
+        - Update
+    - Tabela palavras
+        - Campos
+            - id unico/pk
+            - palavra unico
+            - categoria
+        - Busca
+        - Cadastro (categoria custom)
+    - Tabela categoria
+        - Campos
+            - id unico/pk
+            - categoria
+        - categoria custom (Cadastro de novas palavras)
+        - Busca
+
+ - Thread cliente, talvez mais um obj?
+    - usa Banco?
+
+ - Calculo
+    - lv
+    - xp
+    - pontos
+    
+ - partida/sala (Thread)
+    - Lista Cliente (Threads ?? Objeto)
+    - Informações
+    - Palavra
+    - Letras
+    - Controle de Vez
+    - Fim -> partida (palavra acertada)
+    - Criada (inicio)
+    - Observador/Escuta conexão (encaso de usuario cair, atualizar o resto, que aquele saio da sala)
+    - Sair (usuario)
+    - Fim -> Thread (sala encerrada/fechada)
+
+ - Lista de palavras
+    - Cadastro
+    - validação
+    - busca
