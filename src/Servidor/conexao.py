@@ -10,7 +10,7 @@ def pegar(socket: socket):
         dado = socket.recv(int.from_bytes(tamanho, "big"))
     else:
         dado = socket.recv(1024)
-
+    print(dado)
     return dado.decode('utf-8')
 
 

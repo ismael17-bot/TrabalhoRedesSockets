@@ -18,15 +18,18 @@ serversocket.bind((HOST, PORT))
 
 serversocket.listen(5)
 count = 0
-while count == 0:
+c2 = False
+while count == 0 or c2:
     # accept connections from outside
-    (clientsocket, address) = serversocket.accept()
+    if(c2 == False):
+        c2 = True
+        (clientsocket, address) = serversocket.accept()
 
-    print(f"Connected by {address}")
-    c = cliente(clientsocket)
-    c.start()
-    c.resposta()
-    count += 1
+        print(f"Connected by {address}")
+        c = cliente(clientsocket, c2)
+        c.start()
+        c.resposta()
+        count += 1
 # now do something with the clientsocket
 # in this case, we'll pretend this is a threaded server
 # clientsocket.send(b'teste')
