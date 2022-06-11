@@ -1,7 +1,26 @@
- - inicio( talvez, pois conclusão do multiplayer, para escolher multi ou single)
+ - inicio( talvez, pois conclusão do multiplayer, para escolher multi ou single) 1
  - carregamento (tela que faz a conexão com o servidor, e envia as infos necessarias) (tela de inicial).
 
- - configuração (de partida)
+ - configuração (de partida) 2
  - criação (de  partida)
  - tela onde se ve lista de partidas e pode-se entrar ou criar uma
  - jogo (tela que se joga o jogo em si)
+
+
+
+
+
+telaInicial - seleciona iniciar jogo ou tela adm 1
+- ter dois botoes - multi e single
+
+telaAdm - tela de configuração 2
+- entrar
+- criar 
+- lista de partidas
+
+telaInicioJogo - criar 
+- nome partida
+- categorias de palavras
+- senha 
+
+telaJogo - onde o game acontece

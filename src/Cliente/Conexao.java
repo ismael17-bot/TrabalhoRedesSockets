@@ -14,8 +14,8 @@ public class Conexao {
 
     private static Conexao _this;
 
-    public static void start(String host) throws IOException {
-        _this = new Conexao(host);
+    public static Conexao get(String host) throws IOException {
+        return _this = new Conexao(host);
     }
 
     public static Conexao get() {
@@ -32,17 +32,18 @@ public class Conexao {
 
     private void close() throws IOException {
         socket.close();
+        _this = null;
     }
 
     /**
      * @param dados = "acao:{info}"
      */
     public String conexao(String dados) throws IOException {
+        enviar(dados);
         if (dados.equals("sair")) {
             close();
             return "";
         }
-        enviar(dados);
         return receber();
     }
 
