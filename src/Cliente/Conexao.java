@@ -12,7 +12,17 @@ public class Conexao {
 
     private Socket socket;
 
-    public Conexao(String host) throws UnknownHostException, IOException {
+    private static Conexao _this;
+
+    public static void start(String host) throws IOException {
+        _this = new Conexao(host);
+    }
+
+    public static Conexao get() {
+        return _this;
+    }
+
+    private Conexao(String host) throws UnknownHostException, IOException {
         open(host);
     }
 
