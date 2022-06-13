@@ -14,7 +14,7 @@ class gerenciador_salas():
         return self.salas[id]
 
     def criar_sala(self, cliente, info: dict):
-        _partida = partida(info.id, info.nome, info.sehna, cliente)
+        _partida = partida(self._criar_id(), info.nome, info.sehna, cliente)
         _partida.start()
         cliente.partida = _partida
         return True

@@ -32,9 +32,11 @@ class cliente(Thread):
             'criar_sala': criar_sala,
             'lista_sala': a,
             'add_palavra': a,
+            'excluir_palavra': a,
+            'lista_palavras': a,
+            'lista_jogadores': a,
             'add_': a,
-            'add_': a,
-            'add_': a,
+            'sair': '',
         }
         case = switch.get(key, default)
         return case(vl, self)
@@ -55,7 +57,8 @@ class cliente(Thread):
 
         while self.conexao:
             try:
-                enviar(" '-' ")
+                10
+                # enviar(" '-' ")
             except:
                 self.conexao = False
                 continue
