@@ -5,6 +5,8 @@ package Cliente;
 // import java.util.Scanner;
 // import java.util.Scanner;
 
-public class Cliente {
 
+public class Cliente {
+    public String nome;
+    public int id;
 }
