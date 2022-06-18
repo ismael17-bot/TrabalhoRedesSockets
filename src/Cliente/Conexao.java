@@ -37,6 +37,7 @@ public class Conexao {
 
     /**
      * @param dados = "acao:{info}"
+     * @return a:1;b:3,b:2,c:4 /// , ; :
      */
     public String conexao(String dados) throws IOException {
         enviar(dados);
