@@ -1,3 +1,4 @@
+from sala import gerenciador_salas
 from asyncio.windows_events import NULL
 import socket
 
@@ -17,6 +18,10 @@ serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 serversocket.bind((HOST, PORT))
 
 serversocket.listen(5)
+
+
+gerenciador_sala = gerenciador_salas()
+
 count = 0
 c2 = False
 while count == 0 or c2:
@@ -26,7 +31,7 @@ while count == 0 or c2:
         (clientsocket, address) = serversocket.accept()
 
         print(f"Connected by {address}")
-        c = cliente(clientsocket, c2)
+        c = cliente(clientsocket, gerenciador_sala)
         c.start()
         c.resposta()
         count += 1

@@ -3,23 +3,23 @@ from socket import socket
 
 from threading import Thread
 # import random
-import sys
+# import sys
 
 from conexao import *
 from login import *
-from sala import gerenciador_salas
-
-gerenciador_sala = gerenciador_salas()
+from sala import gerenciador_salas, partida
 
 
 # Thread do cliente
 
 class cliente(Thread):
-    def __init__(self,  socket: socket, *c):
+    partida: partida
+
+    def __init__(self,  socket: socket, salas: gerenciador_salas):
         Thread.__init__(self)
         self.socket = socket
         self.conexao = True
-        self.c = c
+        self.g_salas = salas
 
     def get_id(self):
         return self.id
@@ -28,15 +28,16 @@ class cliente(Thread):
         [key, vl] = vl.split(':')
 
         switch = {
-            'entrar_sala': a,
+            'entrar_sala': entrar_sala,
+            'sair_sala': sair_sala,
             'criar_sala': criar_sala,
-            'lista_sala': a,
+            'lista_sala': lista_sala,
             'add_palavra': a,
             'excluir_palavra': a,
             'lista_palavras': a,
-            'lista_jogadores': a,
+            'lista_jogadores': lista_jogadores,
             'add_': a,
-            'sair': '',
+            'sair': sair,
         }
         case = switch.get(key, default)
         return case(vl, self)
@@ -75,6 +76,10 @@ class cliente(Thread):
         # self.socket
         # self.socket.close()
 
+    def sair(self):
+        self.conexao = False
+        return 'ok'
+
     def get_dados(self):
         d = select(f'SELECT * FROM clientes WHERE id={self.id}')
         d = d.iloc[0]
@@ -87,11 +92,39 @@ class cliente(Thread):
         if(self.conexao):
             return 10
 
+    def __str__(self) -> str:
+        # a:1;b:3,b:2,c:4 /// , ; :
+        return f"xp:{self.xp};lv:{self.lv};p:{self.pontos};n:{self.name};id:{self.id}"
+
 
 def criar_sala(vl: string, cliente: cliente):
     info = json.load(vl)
-    gerenciador_sala.criar_sala(cliente, info)
-    return 'sucesso'
+    cliente.g_salas.criar_sala(cliente, info)
+
+    return 'ok'
+
+
+def entrar_sala(vl: string, cliente: cliente):
+    info = json.load(vl)
+
+    cliente.g_salas.get_sala(info['id'])
+    return cliente.partida.entrar(cliente)
+
+
+def sair_sala(vl: string, cliente: cliente):
+    return cliente.partida.sair()
+
+
+def lista_sala(vl: string, cliente: cliente):
+    return cliente.g_salas.lista_sala_string()
+
+
+def lista_jogadores(vl: string, cliente: cliente):
+    return cliente.partida.lista_jogadores()
+
+
+def sair(vl: string, cliente: cliente):
+    return cliente.sair()
 
 
 def a(vl, cliente):
