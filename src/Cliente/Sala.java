@@ -4,11 +4,6 @@ public class Sala {
     public int id;
     public String nome;
 
-    @Override
-    public String toString() {
-        return "id: " + id + ", nome: " + nome;
-    }
-
     public Sala(String info){
         String[] parts = info.split(";");
 
@@ -26,5 +21,10 @@ public class Sala {
 
         }
         
+    }
+
+    @Override
+    public String toString() {
+        return "id: " + id + ", nome: " + nome;
     }
 }
