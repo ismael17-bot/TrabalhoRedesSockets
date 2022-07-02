@@ -5,6 +5,10 @@
  */
 package Cliente.Telas;
 
+import java.io.IOException;
+
+import Cliente.Conexao;
+
 /**
  *
  * @author ismae
@@ -15,6 +19,7 @@ public class TelaAdm extends javax.swing.JFrame {
      * Creates new form TelaAdm
      */
     public TelaAdm() {
+        setVisible(true);
         initComponents();
     }
 
@@ -29,17 +34,7 @@ public class TelaAdm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
 
-            public int getSize() {
-                return strings.length;
-            }
-
-            public String getElementAt(int i) {
-                return strings[i];
-            }
-        });
         jScrollPane1.setViewportView(jList1);
 
         jButton1.setText("Criar");
@@ -146,4 +141,24 @@ public class TelaAdm extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
+
+    private void updateSalas(){
+        try {
+              String dados = Conexao.get().conexao("lista_sala:");
+        } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        }
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+                String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+
+                public int getSize() {
+                        return strings.length;
+                }
+
+                public String getElementAt(int i) {
+                        return strings[i];
+                }
+        });
+    }
 }

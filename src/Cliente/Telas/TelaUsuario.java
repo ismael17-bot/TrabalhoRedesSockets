@@ -5,7 +5,13 @@
  */
 package Cliente.Telas;
 
+import java.io.IOException;
+import java.lang.*;
+
 import javax.swing.*;
+
+import Cliente.Cliente;
+import Cliente.Conexao;
 
 /**
  *
@@ -38,7 +44,19 @@ public class TelaUsuario extends JFrame {
         entrar.setText("Entrar");
         entrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                Cliente.get().nome = campoNome.getText();
+
+                System.out.println(Cliente.get().nome);
+                try {
+                    Conexao conexao = Conexao.get();
+                    if (conexao != null){
+                        conexao.conexao("{nome:" + Cliente.get().nome +"}");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                new TelaAdm();
+                //jButton1ActionPerformed(evt);
             }
         });
 
