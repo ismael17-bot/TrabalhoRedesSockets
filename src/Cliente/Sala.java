@@ -1,7 +1,7 @@
 package Cliente;
 
 public class Sala {
-    public int id;
+    public String id;
     public String nome;
 
     @Override
@@ -9,7 +9,7 @@ public class Sala {
         return "id: " + id + ", nome: " + nome;
     }
 
-    public Sala(String info){
+    public Sala(String info) {
         String[] parts = info.split(";");
 
         for (String part : parts) {
@@ -19,12 +19,12 @@ public class Sala {
                     nome = s[1];
                     break;
                 case "id":
-                    id = Integer.parseInt(s[1]);
+                    id = s[1];
                 default:
                     break;
             }
 
         }
-        
+
     }
 }

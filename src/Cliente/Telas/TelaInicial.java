@@ -5,103 +5,118 @@
  */
 package Cliente.Telas;
 
+import java.io.IOException;
+
+import javax.swing.*;
+
+import Cliente.Conexao;
+
 /**
  *
  * @author ismae
  */
-public class TelaInicial extends javax.swing.JFrame {
+public class TelaInicial extends JFrame {
 
-    /**
-     * Creates new form TelaInicial
-     */
-    public TelaInicial() {
+    private JButton entrar;
+    private JLabel textoHost;
+    private JLabel titulo;
+
+    private JTextField campoHost;
+
+    private static TelaInicial _this;
+
+    private TelaInicial() {
         setVisible(true);
         initComponents();
     }
 
-    private void initComponents() {
-
-        jButton1 = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jButton1.setText("Multiplayer");
-        jButton1.setToolTipText("");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(417, 417, 417)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 144,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(439, Short.MAX_VALUE)));
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(322, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(258, 258, 258)));
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-        this.dispose();
-        new TelaAdm().setVisible(true);
-    }// GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-        // (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-         * look and feel.
-         * For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        }
-        // </editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaInicial().setVisible(true);
-            }
-        });
+    public static TelaInicial inicio() {
+        return _this == null ? _this = new TelaInicial() : _this;
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    // End of variables declaration//GEN-END:variables
+    private void initComponents() {
+
+        entrar = new JButton();
+        campoHost = new JTextField();
+        textoHost = new JLabel();
+        titulo = new JLabel();
+        campoHost.setText("10.0.101.109");
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        entrar.setText("Conectar");
+        entrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                String host = campoHost.getText();
+
+                System.out.println(host);
+                try {
+                    Conexao conexao = Conexao.get(host);
+                    conexao = Conexao.get();
+                    if (conexao != null) {
+                        setVisible(false);
+                        System.out.println(TelaUsuario.class);
+                        TelaUsuario.inicio();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("Deu ruim");
+                }
+            }
+        });
+
+        campoHost.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        textoHost.setText("Host:");
+
+        titulo.setFont(new java.awt.Font("Vivaldi", 2, 36)); // NOI18N
+        titulo.setText("  Jogo da Forca");
+        titulo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(62, Short.MAX_VALUE)
+                                .addComponent(textoHost)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campoHost, GroupLayout.PREFERRED_SIZE, 256, GroupLayout.PREFERRED_SIZE)
+                                .addGap(69, 69, 69))
+                        .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(161, 161, 161)
+                                                .addComponent(entrar, GroupLayout.PREFERRED_SIZE, 99,
+                                                        GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(85, 85, 85)
+                                                .addComponent(titulo, GroupLayout.PREFERRED_SIZE, 251,
+                                                        GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+        layout.setVerticalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(82, Short.MAX_VALUE)
+                                .addComponent(titulo)
+                                .addGap(55, 55, 55)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(campoHost, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(textoHost))
+                                .addGap(18, 18, 18)
+                                .addComponent(entrar)
+                                .addGap(42, 42, 42)));
+
+        entrar.getAccessibleContext().setAccessibleName("Entrar");
+
+        pack();
+    }
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {
+    }
+
 }

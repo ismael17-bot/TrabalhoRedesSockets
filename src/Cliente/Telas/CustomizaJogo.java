@@ -5,72 +5,103 @@
  */
 package Cliente.Telas;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Vector;
+
+import javax.swing.*;
+
+import Cliente.Conexao;
+
 /**
  *
  * @author ismae
  */
-public class CustomizaJogo extends javax.swing.JFrame {
+public class CustomizaJogo extends JFrame {
 
-    /**
-     * Creates new form CustomizaJogo
-     */
-    public CustomizaJogo() {
+    private static CustomizaJogo _this;
+    private boolean padrao = true;
+
+    private JButton jButton1;
+    private JButton jButton2;
+    private JButton jButton3;
+    private JButton jButton4;
+    private JLabel jLabel1;
+    private JList<String> jList1;
+    private JScrollPane jScrollPane1;
+    private JTextField campoPalavra;
+
+    public Vector<String> palavras = new Vector<String>();
+
+    public static CustomizaJogo start() {
+        get(true);
+        _this.getPalavras();
+        return _this;
+    }
+
+    public static CustomizaJogo get() {
+        return get(true);
+    }
+
+    public static CustomizaJogo get(boolean padrao) {
+        if (_this == null) {
+            _this = new CustomizaJogo(padrao);
+        }
+        if (_this.padrao != padrao) {
+            _this.padrao = padrao;
+            _this.getPalavras();
+        }
+
+        return _this;
+    }
+
+    private CustomizaJogo(boolean padrao) {
+        this.padrao = padrao;
         initComponents();
     }
 
     private void initComponents() {
-
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
-        jTextField1 = new javax.swing.JTextField();
+        campoPalavra = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getPalavras();
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
 
-            public int getSize() {
-                return strings.length;
-            }
-
-            public String getElementAt(int i) {
-                return strings[i];
-            }
-        });
         jScrollPane1.setViewportView(jList1);
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        campoPalavra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
 
         jButton1.setText("Adicionar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
+        jButton1.addActionListener(e -> {
+            onAdd(e);
         });
 
         jButton2.setText("Excluir");
+        jButton2.addActionListener(e -> {
+            onExcluir(e);
+        });
 
         jButton3.setText("Ok");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                onOk(evt);
             }
         });
 
-        jButton4.setText("Cancelar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
+        jButton4.setText("Fechar");
+        jButton4.addActionListener(e -> {
+            onFechar(e);
         });
 
         jLabel1.setText("Palavra:");
@@ -88,7 +119,7 @@ public class CustomizaJogo extends javax.swing.JFrame {
                                         .addComponent(jLabel1)
                                         .addGroup(layout
                                                 .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(campoPalavra, javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING,
                                                         javax.swing.GroupLayout.DEFAULT_SIZE,
                                                         javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -110,7 +141,7 @@ public class CustomizaJogo extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jScrollPane1)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                .addComponent(campoPalavra, javax.swing.GroupLayout.PREFERRED_SIZE,
                                                         javax.swing.GroupLayout.DEFAULT_SIZE,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(18, 18, 18)
@@ -128,75 +159,62 @@ public class CustomizaJogo extends javax.swing.JFrame {
                                 .addContainerGap()));
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_jButton1ActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
-        this.dispose();
-    }// GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
-        this.dispose();
-    }// GEN-LAST:event_jButton4ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-        // (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-         * look and feel.
-         * For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CustomizaJogo.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CustomizaJogo.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CustomizaJogo.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CustomizaJogo.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        }
-        // </editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CustomizaJogo().setVisible(true);
-            }
-        });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    // End of variables declaration//GEN-END:variables
+    private void onAdd(java.awt.event.ActionEvent evt) {
+        String palavra = campoPalavra.getText();
+        if (palavra.length() > 3 && !palavras.contains(palavra)) {
+            try {
+                Conexao.get().conexao("add_palavra;-;{\"palavra\":\"" + palavra + "\"}");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            palavras.add(palavra);
+            jList1.setListData(palavras);
+        }
+    }
+
+    private void onExcluir(java.awt.event.ActionEvent evt) {
+        int index = jList1.getSelectedIndex();
+        String palavra = jList1.getSelectedValue();
+        System.out.println("Index: " + index + " Palavra: " + palavra);
+        if (index != -1 && palavra.length() > 3 && palavras.contains(palavra)) {
+            try {
+                Conexao.get().conexao("excluir_palavra;-;{\"palavra\":\"" + palavra + "\"}");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            palavras.remove(index);
+            jList1.setListData(palavras);
+        }
+
+    }
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {
+
+    }
+
+    private void onOk(java.awt.event.ActionEvent evt) {
+        this.setVisible(false);
+    }
+
+    private void onFechar(java.awt.event.ActionEvent evt) {
+        this.setVisible(false);
+    }
+
+    private void getPalavras() {
+        try {
+            String dados = Conexao.get().conexao("lista_palavras;-;{\"p\":" + padrao + "}");
+            palavras.clear();
+            if (dados.length() > 0) {
+                for (String palavra : dados.split(",")) {
+                    palavras.add(palavra);
+                }
+            }
+        } catch (IOException e) {
+
+        }
+        jList1.setListData(palavras);
+    }
+
 }

@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Cliente.Telas;
 
 import java.io.IOException;
-import java.lang.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.*;
 
@@ -18,13 +15,6 @@ import Cliente.Conexao;
  * @author ismae
  */
 public class TelaUsuario extends JFrame {
-    /**
-     * Creates new form TelaUsuario
-     */
-    public TelaUsuario() {
-        this.setVisible(true);
-        initComponents();
-    }
 
     private JButton entrar;
     private JLabel textoNome;
@@ -32,7 +22,22 @@ public class TelaUsuario extends JFrame {
 
     private JTextField campoNome;
 
+    private static TelaUsuario _this;
+
+    public TelaUsuario() {
+        this.setVisible(true);
+        initComponents();
+    }
+
+    public static TelaUsuario inicio() {
+        if (_this == null) {
+            _this = new TelaUsuario();
+        }
+        return _this;
+    }
+
     private void initComponents() {
+        // return;
 
         entrar = new JButton();
         campoNome = new JTextField();
@@ -44,19 +49,31 @@ public class TelaUsuario extends JFrame {
         entrar.setText("Entrar");
         entrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Cliente.get().nome = campoNome.getText();
-
+                String nome = campoNome.getText();
+                Pattern p = Pattern.compile("[^A-Za-z]");
+                Matcher matcher = p.matcher(nome);
+                if (matcher.find()) {
+                    return;
+                }
+                Cliente.get().nome = nome;
                 System.out.println(Cliente.get().nome);
                 try {
                     Conexao conexao = Conexao.get();
-                    if (conexao != null){
-                        conexao.conexao("{nome:" + Cliente.get().nome +"}");
+                    if (conexao != null) {
+                        String aqui = conexao.conexao("{\"nome\":\"" + Cliente.get().nome + "\"}");
+                        System.out.println("AQUI ----------> " + aqui);
                     }
+                    new TelaAdm();
                 } catch (IOException e) {
+                    Conexao conexao = Conexao.get();
+                    if (conexao.isConnected()) {
+                        setVisible(false);
+                        TelaInicial.inicio().setVisible(true);
+                    }
+
                     e.printStackTrace();
                 }
-                new TelaAdm();
-                //jButton1ActionPerformed(evt);
+                // jButton1ActionPerformed(evt);
             }
         });
 
@@ -114,11 +131,5 @@ public class TelaUsuario extends JFrame {
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
-    }// GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-        dispose();
-        new TelaInicial().setVisible(true);
-    }// GEN-LAST:event_jButton1ActionPerformed
-
+    }
 }
