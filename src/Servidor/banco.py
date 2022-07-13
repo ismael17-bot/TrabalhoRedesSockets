@@ -27,4 +27,17 @@ def insert(campos={}, tabela=''):
         close(con)
         return True
     except:
+        close(con)
+        return False
+
+
+def sqlQuery(sql):
+    con = open()
+    try:
+        con.execute(sql)
+        con.commit()
+        close(con)
+        return True
+    except:
+        close(con)
         return False

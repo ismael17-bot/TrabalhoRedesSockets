@@ -3,7 +3,7 @@ from asyncio.windows_events import NULL
 import socket
 
 from cliente import cliente
-from banco import *
+# from banco import *
 
 HOST = socket.gethostname()  # Endereco IP do Servidor
 # HOST = '127.0.0.1'  # Endereco IP do Servidor
@@ -22,19 +22,24 @@ serversocket.listen(5)
 
 gerenciador_sala = gerenciador_salas()
 
+
 count = 0
 c2 = False
 while count == 0 or c2:
     # accept connections from outside
     if(c2 == False):
         c2 = True
-        (clientsocket, address) = serversocket.accept()
+        try:
+            (clientsocket, address) = serversocket.accept()
 
-        print(f"Connected by {address}")
-        c = cliente(clientsocket, gerenciador_sala)
-        c.start()
-        c.resposta()
-        count += 1
+            print(f"Connected by {address}")
+
+            c = cliente(clientsocket, gerenciador_sala)
+            c.start()
+            c.resposta()
+            count += 1
+        except:
+            print('Deu ruim')
 # now do something with the clientsocket
 # in this case, we'll pretend this is a threaded server
 # clientsocket.send(b'teste')
