@@ -6,7 +6,6 @@
 package Cliente.Telas;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.*;

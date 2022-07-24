@@ -10,13 +10,13 @@ from banco import sqlQuery, select, insert
 
 from conexao import *
 from login import *
-from sala import partida
+# from sala import partida
 
 
 # Thread do cliente
 
 class cliente(Thread):
-    partida: partida
+    partida = NULL  # : partida
 
     def __init__(self,  socket: socket, salas):
         Thread.__init__(self)
@@ -46,6 +46,10 @@ class cliente(Thread):
             'lista_jogadores': lista_jogadores,
             'chutar_palavra': chutar_palavra,
             'chutar_letra': chutar_letra,
+            'vez': vez,
+            'palavra_len': palavra_len,
+            'letras': letras,
+            'acertos': acertos,
             'sair': sair,
         }
         case = switch.get(key, default)
@@ -66,19 +70,19 @@ class cliente(Thread):
         except:
             self.conexao = False
 
-        while self.conexao:
-            # sleep(10000)
-            texto = pegar(socket)
-            sys.stdout.write(f"Text: {texto} \n")
-            resposta = self._switch(texto)
+        try:
 
-            enviar(socket, resposta)
+            while self.conexao:
+                # sleep(10000)
+                texto = pegar(socket)
+                sys.stdout.write(f"Text: {texto} \n")
+                resposta = self._switch(texto)
+
+                enviar(socket, resposta)
+        except:
+            if(self.partida != NULL):
+                self.partida.sair(self)
         self.c = False
-        # sys.stdout.write(f"{self.socket}")
-        # sys.stdout.flush()
-        # self.socket.send(b'teste')
-        # self.socket
-        # self.socket.close()
 
     def sair(self):
         self.conexao = False
@@ -95,6 +99,10 @@ class cliente(Thread):
     def resposta(self):
         if(self.conexao):
             return 10
+
+    def update_dados(self):
+        sqlQuery(
+            f"update clientes set pontos={self.pontos} WHERE id={self.id}")
 
     def __str__(self) -> str:
         # a:1;b:3,b:2,c:4 /// , ; :
@@ -116,7 +124,7 @@ def entrar_sala(vl: str, cliente: cliente):
 
 
 def sair_sala(vl: str, cliente: cliente):
-    return cliente.partida.sair()
+    return cliente.partida.sair(cliente)
 
 
 def lista_sala(vl: str, cliente: cliente):
@@ -125,6 +133,10 @@ def lista_sala(vl: str, cliente: cliente):
 
 def lista_jogadores(vl: str, cliente: cliente):
     return cliente.partida.lista_jogadores()
+
+
+def vez(vl: str, cliente: cliente):
+    return cliente.partida.vez
 
 
 def sair(vl: str, cliente: cliente):
@@ -170,21 +182,29 @@ def lista_palavras(vl: str, cliente: cliente):
 def chutar_palavra(vl: str, cliente: cliente):
     info = json.loads(vl)
 
-    if(cliente.partida.palavra == info['palavra']):
+    if(cliente.partida.chutar_palavra(info['palavra'])):
         return 'ok'
     return 'erro'
 
 
 def chutar_letra(vl: str, cliente: cliente):
     info = json.loads(vl)
-    try:
-        return cliente.partida.palavra.index(info['letra'])
-    except:
-        return '-1'
+    return cliente.partida.chutar_letra(info['letra'])
+
+
+def palavra_len(vl: str, cliente: cliente):
+    return cliente.partida.palavra_len()
+
+
+def letras(vl: str, cliente: cliente):
+    return ','.join(cliente.partida.letras)
+
+
+def acertos(vl: str, cliente: cliente):
+    return cliente.partida.get_acertos()
 
 
 def info_sala(vl: str, cliente: cliente):
-
     return 'erro'
 
 

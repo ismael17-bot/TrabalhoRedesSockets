@@ -8,6 +8,7 @@ import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 // import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Conexao {
 
@@ -58,12 +59,18 @@ public class Conexao {
     }
 
     private void enviar(String dados) throws IOException {
-        System.out.println("------------------- i DADOS i ---------------------------");
-        System.out.println("DADOS enviado: " + dados + " Len: " + dados.length());
-        System.out.println("------------------- f DADOS f ---------------------------");
+        // System.out.println("------------------- i DADOS i
+        // ---------------------------");
+        // System.out.println("DADOS enviado: " + dados + " Len: " + dados.length());
+        // System.out.println("------------------- f DADOS f
+        // ---------------------------");
         pw.print(dados.length());
         pw.flush();
-
+        try {
+            TimeUnit.MILLISECONDS.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         pw.print(dados);
         pw.flush();
     }
@@ -72,7 +79,8 @@ public class Conexao {
         String mensagem = "";
         String msg = "";
         if (socket.isConnected()) {
-            System.out.println("--------------------- i RECEBIDO i ------------------- ");
+            // System.out.println("--------------------- i RECEBIDO i -------------------
+            // ");
 
             msg = reader.readLine();
 
@@ -82,8 +90,9 @@ public class Conexao {
                 msg = reader.readLine();
             }
         }
-        System.out.println("MENSAGEM: " + mensagem + " MSG: " + msg);
-        System.out.println("--------------------- f RECEBIDO f ------------------- ");
+        // System.out.println("MENSAGEM: " + mensagem + " MSG: " + msg);
+        // System.out.println("--------------------- f RECEBIDO f -------------------
+        // ");
 
         return mensagem;
     }

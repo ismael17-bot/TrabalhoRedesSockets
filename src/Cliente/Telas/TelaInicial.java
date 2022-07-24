@@ -40,7 +40,7 @@ public class TelaInicial extends JFrame {
         campoHost = new JTextField();
         textoHost = new JLabel();
         titulo = new JLabel();
-        campoHost.setText("10.0.101.109");
+        campoHost.setText("192.168.1.9");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         entrar.setText("Conectar");

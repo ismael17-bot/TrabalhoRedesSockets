@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import java.util.Vector;
 
 import Cliente.Sala;
@@ -58,10 +58,6 @@ public class TelaAdm extends javax.swing.JFrame {
 		entrar.setText("Entrar");
 		entrar.addActionListener(e -> {
 			onEntrar(e);
-		});
-
-		idSala.addActionListener(e -> {
-			jTextField1ActionPerformed(e);
 		});
 
 		label1.setText("ID Sala");
@@ -162,12 +158,7 @@ public class TelaAdm extends javax.swing.JFrame {
 		});
 	}
 
-	private void jTextField1ActionPerformed(ActionEvent evt) {
-		// TODO add your handling code here:
-	}
-
 	private void onEntrar(ActionEvent evt) {
-		// new TelaJogoMulti().setVisible(true);
 		String id = idSala.getText();
 		if (id.isEmpty()) {
 			return;
@@ -176,6 +167,7 @@ public class TelaAdm extends javax.swing.JFrame {
 		try {
 			String dados = Conexao.get().conexao("entrar_sala;-;{\"id\":" + id + "}");
 			if (dados.equals("True")) {
+				setVisible(false);
 				new TelaJogoMulti();
 			}
 
