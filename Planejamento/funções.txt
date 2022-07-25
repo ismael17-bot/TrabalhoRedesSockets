@@ -8,7 +8,7 @@ cliente
     - receber msg
 
  - Tela lista de salas
-    - Lista de salas
+    - Lista de salas -> id,quant_cli,senha(T/F),nome
     - entrar sala
     - prompit de senha
 
