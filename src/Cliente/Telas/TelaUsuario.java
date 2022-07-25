@@ -57,13 +57,13 @@ public class TelaUsuario extends JFrame {
                 }
                 Cliente cliente = Cliente.get();
                 cliente.nome = nome;
-                System.out.println(cliente.nome);
+                // System.out.println(cliente.nome);
                 try {
                     Conexao conexao = Conexao.get();
                     if (conexao != null) {
                         String aqui = conexao.conexao("{\"nome\":\"" + cliente.nome + "\"}");
                         cliente.id = Integer.parseInt(aqui);
-                        System.out.println("AQUI ----------> " + aqui);
+                        // System.out.println("AQUI ----------> " + aqui);
                     }
                     setVisible(false);
                     new TelaAdm();

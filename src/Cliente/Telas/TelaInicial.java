@@ -40,7 +40,7 @@ public class TelaInicial extends JFrame {
         campoHost = new JTextField();
         textoHost = new JLabel();
         titulo = new JLabel();
-        campoHost.setText("192.168.1.9");
+        campoHost.setText("");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         entrar.setText("Conectar");
@@ -48,13 +48,13 @@ public class TelaInicial extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 String host = campoHost.getText();
 
-                System.out.println(host);
+                // System.out.println(host);
                 try {
                     Conexao conexao = Conexao.get(host);
                     conexao = Conexao.get();
                     if (conexao != null) {
                         setVisible(false);
-                        System.out.println(TelaUsuario.class);
+                        // System.out.println(TelaUsuario.class);
                         TelaUsuario.inicio();
                     }
                 } catch (IOException e) {

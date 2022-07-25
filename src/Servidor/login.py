@@ -12,7 +12,7 @@ class Login():
 
     def _login(self, texto=""):
         j = json.loads(texto)
-        print(j)
+        # print(j)
         if('id' in j):
             self.id = j['id']
         else:

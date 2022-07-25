@@ -176,7 +176,7 @@ public class CustomizaJogo extends JFrame {
     private void onExcluir(java.awt.event.ActionEvent evt) {
         int index = jList1.getSelectedIndex();
         String palavra = jList1.getSelectedValue();
-        System.out.println("Index: " + index + " Palavra: " + palavra);
+        // System.out.println("Index: " + index + " Palavra: " + palavra);
         if (index != -1 && palavra.length() > 3 && palavras.contains(palavra)) {
             try {
                 Conexao.get().conexao("excluir_palavra;-;{\"palavra\":\"" + palavra + "\"}");

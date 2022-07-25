@@ -12,7 +12,7 @@ public class Vez extends Thread {
     public Vez(Aviso aviso) {
         super();
         this.aviso = aviso;
-        System.out.println("aviso:" + aviso);
+        // System.out.println("aviso:" + aviso);
         this.start();
     }
 

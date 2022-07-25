@@ -31,7 +31,7 @@ public class Conexao {
     }
 
     private void open(String host) throws UnknownHostException, IOException {
-        socket = new Socket(host, 7070);
+        socket = new Socket(host, 5070);
         pw = new PrintStream(socket.getOutputStream());
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
@@ -84,15 +84,20 @@ public class Conexao {
 
             msg = reader.readLine();
 
-            while (msg != null && !msg.equals(";-;FIM;-;")) {
-                System.out.println("msg: " + msg + " len:" + msg.length());
+            while (msg != null && !msg.contains(";-;FIM;-;")) {
+                // System.out.println("msg: " + msg + " len:" + msg.length());
                 mensagem += msg;
                 msg = reader.readLine();
             }
+            if(msg != null && msg.contains(";-;FIM;-;")){
+                String[] aux = msg.split(";-;FIM;-;");
+                if(aux.length!=0){
+                    mensagem += aux[0];
+                }
+            }
         }
         // System.out.println("MENSAGEM: " + mensagem + " MSG: " + msg);
-        // System.out.println("--------------------- f RECEBIDO f -------------------
-        // ");
+        // System.out.println("--------------------- f RECEBIDO f -------------------");
 
         return mensagem;
     }

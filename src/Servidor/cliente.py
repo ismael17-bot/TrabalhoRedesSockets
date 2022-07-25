@@ -28,7 +28,7 @@ class cliente(Thread):
         return self.id
 
     def _switch(self, vl=""):
-        print(f"{vl} {type(vl)}")
+        # print(f"{vl} {type(vl)}")
         if(len(vl) < 3 or vl.find(';-;') == -1):
             return ""
 
@@ -65,7 +65,7 @@ class cliente(Thread):
         self.get_dados()
 
         try:
-            print(f"ID: {self.id}")
+            # print(f"ID: {self.id}")
             enviar(socket, self.id)
         except:
             self.conexao = False
@@ -175,7 +175,7 @@ def lista_palavras(vl: str, cliente: cliente):
             SELECT palavra FROM padrao
         ) order by 1""")
 
-    print(data.loc[:, 'palavra'].values)
+    # print(data.loc[:, 'palavra'].values)
     return ','.join(data.loc[:, 'palavra'].values)
 
 

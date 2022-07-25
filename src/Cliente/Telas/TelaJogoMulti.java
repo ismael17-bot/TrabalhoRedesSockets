@@ -222,9 +222,8 @@ public class TelaJogoMulti extends JFrame {
         // updateLetras();
         getJogadores();
         infoPartida();
-        // validaVez();
+        validaVez();
         aviso.addListener(e -> {
-            System.out.println("aqui 2");
             validaVez();
         });
 
@@ -232,7 +231,6 @@ public class TelaJogoMulti extends JFrame {
 
     private void validaVez() {
         // while (open) {
-        System.out.println("aqui 1");
         infoPartida();
         getJogadores();
         if (vez) {
@@ -295,9 +293,9 @@ public class TelaJogoMulti extends JFrame {
         try {
             String dados = Conexao.get().conexao("vez;-;");
             int num = Integer.parseInt(dados);
-            System.out.println("JogadorVez" + jogadorVez);
-            System.out.println("Jogadores" + jogadores);
-            System.out.println("id voce" + Cliente.get().id);
+            // System.out.println("JogadorVez" + jogadorVez);
+            // System.out.println("Jogadores" + jogadores);
+            // System.out.println("id voce " + Cliente.get().id);
             for (Jogadores j : jogadores) {
                 if (j.id == num) {
                     jogadorVez = j;
@@ -322,12 +320,14 @@ public class TelaJogoMulti extends JFrame {
                 return;
             }
             for (String l2 : dados.split(",")) {
-                int num = Integer.parseInt(l2);
-                Letra l = new Letra(letra, num);
-                if (num != -1) {
-                    acertadas.add(l);
+                if(!l2.equals("")){
+                    int num = Integer.parseInt(l2);
+                    Letra l = new Letra(letra, num);
+                    if (num != -1) {
+                        acertadas.add(l);
+                    }
+                    letras.add(letra);
                 }
-                letras.add(letra);
             }
             updatePalavra();
             updateLetras();

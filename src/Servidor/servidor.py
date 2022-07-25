@@ -4,9 +4,9 @@ import socket
 from cliente import cliente
 # from banco import *
 
-HOST = socket.gethostname()  # Endereco IP do Servidor
+HOST = socket.gethostbyname(socket.gethostname())  # Endereco IP do Servidor
 # HOST = '127.0.0.1'  # Endereco IP do Servidor
-PORT = 7070         # Porta que o Servidor esta
+PORT = 5070         # Porta que o Servidor esta
 print(f"{socket.gethostbyname(socket.gethostname())}")
 
 # insert(campos={'nome': 'jose2', 'lv': 0,

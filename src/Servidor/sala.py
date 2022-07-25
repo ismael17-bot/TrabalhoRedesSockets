@@ -119,14 +119,14 @@ class partida():
 
     def sair(self, cliente):
         try:
-            print("--------------------------------")
-            print(self.cliente)
-            print("--------------------------------")
+            # print("--------------------------------")
+            # print(self.cliente)
+            # print("--------------------------------")
             id = cliente.get_id()
             self.cliente.pop(id)
 
-            print(self.cliente)
-            print(f"--------------{id}------------------")
+            # print(self.cliente)
+            # print(f"--------------{id}------------------")
             if self.vez == id:
                 self.vezProxima()
 
