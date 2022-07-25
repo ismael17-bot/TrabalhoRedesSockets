@@ -1,0 +1,1 @@
+py .\src\Servidor\servidor.py
